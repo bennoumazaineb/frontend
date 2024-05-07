@@ -35,7 +35,7 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 import Ajouter_template from "layouts/add_template";
 import Modifier_template from "layouts/add_template";
 import Template from "layouts/template"
-import Ajouter_Historique from "layouts/add_historique/historique";
+import Ajouter_Historique from "layouts/add_historique/index";
 // Images
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import brandWhite from "assets/images/gedplus.png";
