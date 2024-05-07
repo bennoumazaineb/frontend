@@ -16,7 +16,7 @@ import Dropzone from "react-dropzone";
 import MenuItem from '@mui/material/MenuItem';
 import Grid from "@mui/material/Grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { delImg, uploadImg } from "feature/upload/uploadSlice";
+import { delImg2, uploadImg2 } from "feature/upload/uploadSlice";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {getClients} from "feature/auth/authSlice"
@@ -28,14 +28,14 @@ const Add_formPage2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { selectedClient } = useParams();
-  
+  const [images, setimages] = useState([]);
   const gettemplateId = location.pathname.split("/")[2];
   const getclientsId = location.pathname.split("/")[3];
 
   useEffect(() => {
     dispatch(getClients());
   }, [dispatch]);
-
+  const imgState = useSelector((state) => state.upload.images2);
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -50,26 +50,11 @@ const Add_formPage2 = () => {
       return;
     }
 
-    try {
-      // Compression des images avant envoi
-      const compressedImages = await Promise.all(
-        add_page2.images.map(async (image) => {
-          const compressedFile = await imageCompression(image.file, {
-            maxSizeMB: 1,
-            maxWidthOrHeight: 1920,
-            useWebWorker: true,
-          });
-          return {
-            ...image,
-            file: compressedFile,
-          };
-        })
-      );
-
+   
       // Création de la page 2 avec les images compressées
       const pageData = {
         ...add_page2,
-        images: compressedImages,
+        
       };
 
       dispatch(createPage2(pageData));
@@ -77,9 +62,7 @@ const Add_formPage2 = () => {
       setTimeout(() => {
         navigate(`/Ajouter_Formulaire3/${gettemplateId}/${getclientsId}`);
       }, 300);
-    } catch (error) {
-      console.error("Error compressing images:", error);
-    }
+  
   };
 
   const [add_page2, setAdd_page2] = useState({
@@ -91,25 +74,30 @@ const Add_formPage2 = () => {
     information: "",
     images: [],
   });
-
+  const img = [];
   const changeHandler = (name, value) => {
     setAdd_page2({
       ...add_page2,
       [name]: value,
     });
   };
+  useEffect(() => {
+  
 
-  const onDropHandler = (acceptedFiles) => {
-    const imagesWithFiles = acceptedFiles.map((file) => ({
-      file: file,
-      url: URL.createObjectURL(file),
-    }));
+      imgState.forEach((i) => {
+        img.push({
+          public_id: i.public_id,
+          url: i.url,
+        });
+      });
+      setAdd_page2((prevForm) => ({
+        ...prevForm,
+         images: img,
+       }));
 
-    setAdd_page2((prev) => ({
-      ...prev,
-      images: [...prev.images, ...imagesWithFiles],
-    }));
-  };
+    
+  }, [imgState]);
+
 console.log("add_page2",add_page2)
   return (
     <DashboardLayout>
@@ -198,7 +186,7 @@ console.log("add_page2",add_page2)
        <MDBox display="flex" flexDirection="row" mt={5} mb={3} width="100%">
             <MDBox width="100%">
 
-                <Dropzone onDrop={onDropHandler}>
+                <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg2(acceptedFiles))}>
                   {({ getRootProps, getInputProps }) => (
                     <MDBox
                       {...getRootProps()}
@@ -227,11 +215,12 @@ console.log("add_page2",add_page2)
     add_page2.images.map((image, index) => (
       <Grid container item key={index} xs={12} sm={6} md={4} lg={3} justifyContent="center" alignItems="center">
         <MDBox className="position-relative" style={{ position: 'relative', marginBottom: '8px' }}>
-          <DeleteIcon
-            color="black"
-            onClick={() => dispatch(delImg(image.file.name))}
-            style={{ position: 'absolute', top: 0, right: 0, cursor: 'pointer' }}
-          />
+        {console.log(image.public_id,"sss")}
+        <DeleteIcon
+          color="black"
+          onClick={() => dispatch(delImg2(image.public_id))}
+          style={{ position: 'absolute', top: 0, right: 0, cursor: 'pointer' }}
+        />
           <img src={image.url} alt="" width={200} height={200} />
         </MDBox>
       </Grid>

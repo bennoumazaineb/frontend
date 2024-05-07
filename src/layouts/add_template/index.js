@@ -16,8 +16,9 @@ import Dropzone from "react-dropzone";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Grid from "@mui/material/Grid";
 import MDTextarea from "components/MDTextarea";
-import { delImg, uploadImg } from "feature/upload/uploadSlice";
+import { deleteImg1, uploadImg1 } from "feature/upload/uploadSlice";
 import { createTemplate, updateTemplate, getaTemplate } from "feature/template/templateSlice";
+import { delImg } from "feature/upload/uploadSlice";
 
 const schema = yup.object().shape({
   Id_template: yup.string().required("Id_template est requis"),
@@ -30,9 +31,10 @@ const Add_template = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [notification, setNotification] = useState(false);
-  const imgState = useSelector((state) => state.upload.images);
+  const [images, setimages] = useState([]);
+  const imgState = useSelector((state) => state.upload.images1);
   const getaTemplateId = location.pathname.split("/")[2];
-
+console.log(imgState)
   useEffect(() => {
     if (getaTemplateId !== undefined) {
       dispatch(getaTemplate(getaTemplateId));
@@ -42,20 +44,21 @@ const Add_template = () => {
   }, [dispatch, getaTemplateId]);
 
   const newTemplate = useSelector((state) => state.template?.TemplateByUser?.getaTemplate);
+  const img = [];
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       Id_template: newTemplate?.Id_template || "",
       URL: newTemplate?.URL || "",
-      images: newTemplate?.images || [],
+      images: images || [],
       Description: newTemplate?.Description || "",
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      const { Id_template, URL, images, Description } = values;
+      const { Id_template, URL,  Description } = values;
 
-      if (!Id_template || !Id_template.trim() || !URL || !URL.trim() || !images || images.length === 0 || !Description || !Description.trim()) {
+      if (!Id_template || !Id_template.trim() || !URL || !URL.trim() || !Description || !Description.trim()) {
         setNotification(true);
         return;
       }
@@ -101,16 +104,19 @@ const Add_template = () => {
     const { name, value } = e.target;
     formik.setFieldValue(name, value);
   };
+  useEffect(() => {
+      imgState.forEach((i) => {
+        img.push({
+          public_id: i.public_id,
+          url: i.url,
+        });
+      });
+      setimages(img)
 
-  const onDropHandler = (acceptedFiles) => {
-    dispatch(uploadImg(acceptedFiles));
+    
+  }, [imgState]);
 
-    const updatedImages = acceptedFiles.map((file) => ({
-      public_id: file.public_id,
-      url: URL.createObjectURL(file),
-    }));
-    formik.setFieldValue('images', updatedImages);
-  };
+ 
 
   return (
     <DashboardLayout>
@@ -193,7 +199,7 @@ const Add_template = () => {
             <MDBox width="100%">
            
                 <MDBox>
-                  <Dropzone onDrop={onDropHandler}>
+                  <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg1(acceptedFiles))}>
                     {({ getRootProps, getInputProps }) => (
                       <MDBox
                         {...getRootProps()}
@@ -216,15 +222,18 @@ const Add_template = () => {
                   </Dropzone>
                 </MDBox>
                 <MDBox className="showimages d-flex flex-wrap gap-3">
-                  {formik.values.images &&
-                    formik.values.images.map((image, index) => (
-                      <Grid container item key={index} xs={12} sm={6} md={4} lg={3} justifyContent="center" alignItems="center">
-                        <MDBox className="position-relative" style={{ position: "relative", marginBottom: "8px" }}>
-                          <DeleteIcon color="black" onClick={() => dispatch(delImg(image.public_id))} style={{ position: "absolute", top: 0, right: 0, cursor: "pointer" }} />
-                          <img src={image.url} alt="" width={200} height={200} />
-                        </MDBox>
-                      </Grid>
-                    ))}
+                {images && (
+  images.map((image, index) => (
+    <Grid container item key={index} xs={12} sm={6} md={4} lg={3} justifyContent="center" alignItems="center">
+      <MDBox className="position-relative" style={{ position: "relative", marginBottom: "8px" }}>
+        {console.log(image.public_id,"sss")}
+        <DeleteIcon color="black" onClick={() => dispatch(deleteImg1(image.public_id))} style={{ position: "absolute", top: 0, right: 0, cursor: "pointer" }} />
+        <img src={image.url} alt="" width={200} height={200} />
+      </MDBox>
+    </Grid>
+  ))
+)}
+
                 </MDBox>
     
             </MDBox>

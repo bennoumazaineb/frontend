@@ -18,6 +18,7 @@ import * as yup from "yup";
 import { createPage3 } from "feature/page3/page3Slice";
 import { useFormik } from "formik";
 import imageCompression from 'browser-image-compression';
+import { uploadImg3 } from "feature/upload/uploadSlice";
 const Add_formPage3 = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,48 +43,28 @@ const Add_formPage3 = () => {
     setServiceList(updatedServices);
   };
 
-  const handleImageUpload = async (acceptedFiles, serviceIndex) => {
-    try {
-      const compressedFiles = await Promise.all(
-        acceptedFiles.map(async (file) => {
-          const compressedFile = await imageCompression(file, {
-            maxSizeMB: 1,
-            maxWidthOrHeight: 1920,
-            useWebWorker: true
-          });
-          return compressedFile;
-        })
-      );
-  
-      const updatedServices = [...serviceList];
-  
-      // Ajouter chaque image avec son URL blob dans le service correspondant
-      const updatedImages = compressedFiles.map((file) => ({
-        file: file,
-        url: URL.createObjectURL(file)  // Créer une URL blob pour chaque image
-      }));
-  
-      updatedServices[serviceIndex].images = [
-        ...updatedServices[serviceIndex].images,
-        ...updatedImages
-      ];
-      setServiceList(updatedServices);
-    } catch (error) {
-      console.error("Error compressing images:", error);
-    }
-  };
-  
+
+  const imgState = useSelector((state) => state.upload.images3);
 
   const handleServiceAdd = () => {
-    const newService = {
-      titre: "",
-      description_court: "",
-      description: "",
-      images: []
-    };
-    setServiceList([...serviceList, newService]);
+    setServiceList([...serviceList, { titre: "" , description_court:"" , description:"" , images:[]} ]);
   };
-
+  const index = serviceList.length
+  const list = [...serviceList];
+   console.log(index-1)
+  const img = [];
+  imgState.forEach((i) => {
+    img.push({
+      public_id: i.public_id,
+      url: i.url,
+    });
+  });
+  useEffect(() => {
+    console.log("img",img)
+    list[index-1]["images"] = img;
+    setServiceList(list)
+      }, [ imgState]);
+      
   const handleServiceRemove = (index) => {
     const updatedServices = [...serviceList];
     updatedServices.splice(index, 1);
@@ -98,8 +79,7 @@ const Add_formPage3 = () => {
       (service) =>
         service.description_court.trim().length > 0 &&
         service.titre.trim().length > 0 &&
-        service.description.trim().length > 0 &&
-        service.images.length > 0
+        service.description.trim().length > 0 
     );
 
     if (!isValid) {
@@ -190,7 +170,7 @@ const Add_formPage3 = () => {
               />
                </MDBox>
               {/* Image Upload */}
-              <Dropzone onDrop={(acceptedFiles) => handleImageUpload(acceptedFiles, index)}>
+              <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg3(acceptedFiles))} >
                 {({ getRootProps, getInputProps }) => (
                   <MDBox {...getRootProps()} style={{ border: "outset", padding: "20px", borderRadius: "5px", width: "100%" }}>
                     <input {...getInputProps()} />

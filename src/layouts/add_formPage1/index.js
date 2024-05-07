@@ -26,8 +26,8 @@ import { getClients } from "feature/auth/authSlice";
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    
     const imgState = useSelector((state) => state.upload.images);
+console.log(imgState)
     const [isDemo, setIsDemo] = useState(false);
     const location = useLocation();
     const gettemplateId = location.pathname.split("/")[2];
@@ -91,26 +91,23 @@ import { getClients } from "feature/auth/authSlice";
   console.log(add_formPage1)
     // Récupération des données du template
 
-    const onDropHandler1 = (acceptedFiles) => {
-      console.log("Uploaded image files:", acceptedFiles);
-      dispatch(uploadImg(acceptedFiles));
-    };
+
     // Initialisation de l'état du formulaire une fois que les données du template sont disponibles
    
     useEffect(() => {
-      if (imgState && imgState.length > 0) {
+    
         const img = [];
-        imgState.forEach((i) => {
+        imgState?.forEach((i) => {
           img.push({
             public_id: i.public_id,
             url: i.url,
           });
         });
-        setadd_formPage1((prevForm) => ({
-          ...prevForm,
+         setadd_formPage1((prevForm) => ({
+         ...prevForm,
           images: img,
         }));
-      }
+      
     }, [imgState]);
     
     const changeHandler = (e) => {
@@ -131,15 +128,7 @@ import { getClients } from "feature/auth/authSlice";
         clients: clientName
       }));
     };
-    
-    const onDropHandler = (acceptedFiles) => {
-      dispatch(uploadImg(acceptedFiles));
-      const updatedImages = acceptedFiles.map(file => ({
-        public_id: file.public_id,
-        url: URL.createObjectURL(file)
-      }));
-      setadd_formPage1((prev) => ({ ...prev, images: updatedImages }));
-    };
+
 
 
   return (
@@ -368,7 +357,7 @@ Champ obligatoire
       <MDBox display="flex" flexDirection="row" justifyContent="center">
       <MDBox width="100%">
         
-                <Dropzone onDrop={onDropHandler}>
+                <Dropzone               onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}>
                   {({ getRootProps, getInputProps }) => (
                     <MDBox
                       {...getRootProps()}
@@ -395,6 +384,7 @@ Champ obligatoire
   {add_formPage1.images && add_formPage1.images.map((image, index) => (
     <Grid container item key={index} xs={12} sm={6} md={4} lg={3} justifyContent="center" alignItems="center">
       <MDBox className="position-relative" style={{ position: 'relative', marginBottom: '8px' }}>
+      {console.log(image.public_id,"sss")}
         <DeleteIcon
           color="black"
           onClick={() => dispatch(delImg(image.public_id))}
