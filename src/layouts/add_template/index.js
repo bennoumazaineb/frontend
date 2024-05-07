@@ -16,7 +16,7 @@ import Dropzone from "react-dropzone";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Grid from "@mui/material/Grid";
 import MDTextarea from "components/MDTextarea";
-import { deleteImg1, uploadImg1 } from "feature/upload/uploadSlice";
+import {  uploadImg } from "feature/upload/uploadSlice";
 import { createTemplate, updateTemplate, getaTemplate } from "feature/template/templateSlice";
 import { delImg } from "feature/upload/uploadSlice";
 
@@ -31,8 +31,9 @@ const Add_template = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [notification, setNotification] = useState(false);
-  const [images, setimages] = useState([]);
-  const imgState = useSelector((state) => state.upload.images1);
+  const [images, setImages] = useState([]);
+
+  const imgState = useSelector((state) => state.upload?.images);
   const getaTemplateId = location.pathname.split("/")[2];
 console.log(imgState)
   useEffect(() => {
@@ -45,7 +46,15 @@ console.log(imgState)
 
   const newTemplate = useSelector((state) => state.template?.TemplateByUser?.getaTemplate);
   const img = [];
-
+  imgState?.forEach((i) => {
+    img.push({
+      public_id: i.public_id,
+      url: i.url,
+    });
+  });
+  useEffect(() => {
+    setImages(img);
+  }, [imgState]);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -104,17 +113,7 @@ console.log(imgState)
     const { name, value } = e.target;
     formik.setFieldValue(name, value);
   };
-  useEffect(() => {
-      imgState.forEach((i) => {
-        img.push({
-          public_id: i.public_id,
-          url: i.url,
-        });
-      });
-      setimages(img)
 
-    
-  }, [imgState]);
 
  
 
@@ -199,7 +198,7 @@ console.log(imgState)
             <MDBox width="100%">
            
                 <MDBox>
-                  <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg1(acceptedFiles))}>
+                  <Dropzone    onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}>
                     {({ getRootProps, getInputProps }) => (
                       <MDBox
                         {...getRootProps()}
@@ -227,7 +226,7 @@ console.log(imgState)
     <Grid container item key={index} xs={12} sm={6} md={4} lg={3} justifyContent="center" alignItems="center">
       <MDBox className="position-relative" style={{ position: "relative", marginBottom: "8px" }}>
         {console.log(image.public_id,"sss")}
-        <DeleteIcon color="black" onClick={() => dispatch(deleteImg1(image.public_id))} style={{ position: "absolute", top: 0, right: 0, cursor: "pointer" }} />
+        <DeleteIcon color="black"   onClick={() => dispatch(delImg(image.public_id))} style={{ position: "absolute", top: 0, right: 0, cursor: "pointer" }} />
         <img src={image.url} alt="" width={200} height={200} />
       </MDBox>
     </Grid>
