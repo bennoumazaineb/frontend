@@ -167,30 +167,31 @@ const Add_template = () => {
                   Description
                 </MDTypography>
                 <MDBox mb={1} width="100%">
-                  <MDTextarea
-                    rows={5}
-                    name="Description"
-                    placeholder="Entrez Description"
-                    value={formik.values.Description}
-                    onChange={changeHandler}
-                    style={{
-                      padding: "10px",
-                      width: "100%",
-                      margin: "0",
-                      lineHeight: "1.5",
-                      borderRadius: "5px",
-                      border: "1px solid #ccc",
-                      boxShadow: "1px 1px 1px #999",
-                      fontFamily: "Roboto",
-                      height: '60px',
-                    }}
-                  />
+                <MDTextarea
+    rows={5}
+    name="Description"
+    placeholder="Entrez Description"
+    value={formik.values.Description}
+    onChange={changeHandler}
+    style={{
+      padding: "10px",
+      width: "100%",
+      margin: "0",
+      lineHeight: "1.5",
+      borderRadius: "5px",
+      border: "1px solid #ccc",
+      boxShadow: "1px 1px 1px #999",
+      fontFamily: "Roboto",
+      fontSize: "14px", // Taille de police pour le texte du textarea
+      height: '60px',
+    }}
+  />
                          {formik.errors.Description && <MDTypography variant="caption" color="error">Champ obligatoire</MDTypography>}
                 </MDBox>
               </MDBox>
             </MDBox>
             <MDBox width="100%">
-              <MDBox className="bg-white border border-2 border-black p-5 text-center">
+           
                 <MDBox>
                   <Dropzone onDrop={onDropHandler}>
                     {({ getRootProps, getInputProps }) => (
@@ -225,7 +226,7 @@ const Add_template = () => {
                       </Grid>
                     ))}
                 </MDBox>
-              </MDBox>
+    
             </MDBox>
             <MDBox mt={4} display="flex" justifyContent="end">
               <MDButton variant="gradient" color="info" type="submit">

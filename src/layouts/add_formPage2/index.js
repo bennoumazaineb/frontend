@@ -197,7 +197,7 @@ console.log("add_page2",add_page2)
        {/* Dropzone pour les images */}
        <MDBox display="flex" flexDirection="row" mt={5} mb={3} width="100%">
             <MDBox width="100%">
-              <MDBox className="bg-white border border-2 border-black p-5 text-center">
+
                 <Dropzone onDrop={onDropHandler}>
                   {({ getRootProps, getInputProps }) => (
                     <MDBox
@@ -220,7 +220,7 @@ console.log("add_page2",add_page2)
                   )}
                 </Dropzone>
               </MDBox>
-            </MDBox>
+    
             {/* Affichage des images sélectionnées */}
             <MDBox className="showimages d-flex flex-wrap gap-3">
   {add_page2.images &&

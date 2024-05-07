@@ -308,7 +308,7 @@ Champ obligatoire
   mr={2}
 >
   <MDTypography variant="body2" color="text" ml={1} fontWeight="regular">
-    Téléphone
+    Téléphone de société
   </MDTypography>
   <MDBox mb={2} width="100%">
     <MDInput
@@ -340,7 +340,7 @@ Champ obligatoire
           ml={2}
         >
           <MDTypography variant="body2" color="text" ml={1} fontWeight="regular">
-            Email
+            Email de société
           </MDTypography>
           <MDBox mb={1} width="100%">
             <MDInput
@@ -367,7 +367,7 @@ Champ obligatoire
       <MDBox display="flex" flexDirection="column" mt={5} mb={3} width="100%">
       <MDBox display="flex" flexDirection="row" justifyContent="center">
       <MDBox width="100%">
-              <MDBox className="bg-white border border-2 border-black p-5 text-center">
+        
                 <Dropzone onDrop={onDropHandler}>
                   {({ getRootProps, getInputProps }) => (
                     <MDBox
@@ -406,7 +406,7 @@ Champ obligatoire
   ))}
 </MDBox>
 
-            </MDBox>
+   
           </MDBox>
 
           <MDBox mt={4} display="flex" justifyContent="end">

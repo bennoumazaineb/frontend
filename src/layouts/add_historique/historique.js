@@ -28,22 +28,23 @@ const add_Historique = () => {
 
   const [images, setImages] = useState([]);
   const client = useSelector((state) => state);
-  const imgState = useSelector((state) => state.upload.images);
-
+  const imgState = useSelector((state) => state.upload?.images); // Use optional chaining to safely access images
 
 
 
   const img = [];
-  imgState.forEach((i) => {
+  imgState?.forEach((i) => {
     img.push({
       public_id: i.public_id,
       url: i.url,
     });
   });
-
+  
   useEffect(() => {
     setImages(img);
   }, [img]);
+
+
  
   useEffect(() => {
     setAdd_historiuqe({
@@ -237,7 +238,7 @@ const add_Historique = () => {
               </MDBox>
             </MDBox>
           <MDBox mb={3}>
-            <MDBox className="bg-white border border-2 border-black p-5 text-center">
+            
               <MDTypography
                 variant="body2"
                 color="text"
@@ -276,7 +277,7 @@ const add_Historique = () => {
                   </MDBox>
                 )}
               </Dropzone>
-            </MDBox>
+        
             <MDBox className="showimages d-flex flex-wrap gap-3">
               {images.map((i, j) => (
                 <Grid
