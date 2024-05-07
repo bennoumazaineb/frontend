@@ -24,10 +24,10 @@ const add_Historique = () => {
   const location = useLocation();
   const [notification, setNotification] = useState(false);
   const gethistoId = location.pathname.split("/")[2];
-  const [serviceList, setServiceList] = useState([]);
+
 
   const [images, setImages] = useState([]);
-  const client = useSelector((state) => state);
+
   const imgState = useSelector((state) => state.upload?.images); // Use optional chaining to safely access images
 
 
@@ -42,7 +42,7 @@ const add_Historique = () => {
   
   useEffect(() => {
     setImages(img);
-  }, [img]);
+  }, [imgState]);
 
 
  
