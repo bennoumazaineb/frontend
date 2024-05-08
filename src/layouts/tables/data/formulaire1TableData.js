@@ -57,27 +57,27 @@ export default function Data() {
 
     </MDBox>
   );
-  let rows = [];
-  if (formState && Array.isArray(formState) && formState.length > 0) {
-    rows = formState.map((item, index) => ({
-      Id_template: <Job title={item.Id_template} description="" />,
-      clients:  <Job title={item.clients} description="" />,
-      action: (
-        <MDBox>
-          <MDBox sx={{ display: 'flex', alignItems: 'center' }}>
-            <Link to={`/Affichage_Formulaire1/${item.Id_template}/${item.clients}`} style={{ textDecoration: 'none' }}>
-              <MDBox sx={{ display: 'flex' }}>
-                <VisibilityIcon style={{ color: 'gray', fontSize: '16px' }} />
-              </MDBox>
-            </Link>
-            {userRole === 'admin' && ( // Afficher l'action de suppression uniquement pour les administrateurs
-              <MDButton onClick={() => handleOpen(item._id)}>
-                <DeleteIcon style={{ color: 'gray', fontSize: '16px' }} />
-              </MDButton>
-            )}
-          </MDBox>
 
-          <MDModel
+ 
+  const rows = formState.map((item, index) => ({
+    Id_template: <Job title={item.Id_template} description="" />,
+    clients:  <Job title={item.clients} description="" />,
+    action: (
+      <MDBox>
+        <MDBox sx={{ display: 'flex', alignItems: 'center' }}>
+          <Link to={`/Affichage_Formulaire1/${item.Id_template}/${item.clients}`} style={{ textDecoration: 'none' }}>
+            <MDBox sx={{ display: 'flex' }}>
+              <VisibilityIcon style={{ color: 'gray', fontSize: '16px' }} />
+            </MDBox>
+          </Link>
+          {userRole === 'admin' && ( // Afficher l'action de suppression uniquement pour les administrateurs
+            <MDButton onClick={() => handleOpen(item._id)}>
+              <DeleteIcon style={{ color: 'gray', fontSize: '16px' }} />
+            </MDButton>
+          )}
+        </MDBox>
+
+        <MDModel
           open={open && selectedItemId === item._id}
           onClose={handleClose}
           aria-labelledby="child-modal-title"
@@ -97,10 +97,9 @@ export default function Data() {
             </MDBox>
           </MDBox>
         </MDModel>
-        </MDBox>
-      )
-    }));
-  }
+      </MDBox>
+    )
+  }));
 
   return {
     columns: [
@@ -111,4 +110,3 @@ export default function Data() {
     rows
   };
 }
-
