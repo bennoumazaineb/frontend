@@ -44,7 +44,7 @@ const Add_formPage3 = () => {
   };
 
 
-  const imgState = useSelector((state) => state.upload.images3);
+  const imgState = useSelector((state) => state.upload?.images);
 
   const handleServiceAdd = () => {
     setServiceList([...serviceList, { titre: "" , description_court:"" , description:"" , images:[]} ]);
@@ -170,7 +170,7 @@ const Add_formPage3 = () => {
               />
                </MDBox>
               {/* Image Upload */}
-              <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg3(acceptedFiles))} >
+              <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))} >
                 {({ getRootProps, getInputProps }) => (
                   <MDBox {...getRootProps()} style={{ border: "outset", padding: "20px", borderRadius: "5px", width: "100%" }}>
                     <input {...getInputProps()} />
