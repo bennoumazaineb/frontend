@@ -11,6 +11,10 @@ const uploadImg1 = async (data) => {
   const response = await axios.post(`${base_url}upload/template`, data, config);
   return response.data;
 };
+const uploadImg2 = async (data) => {
+  const response = await axios.post(`${base_url}upload/page2`, data);
+  return response.data;
+};
 const deleteImg = async (id) => {
   const response = await axios.delete(
     `${base_url}upload/delete-img/${id}`,
@@ -43,10 +47,7 @@ const deleteImg3 = async (id) => {
   );
   return response.data;
 };
-const uploadImg2 = async (data) => {
-  const response = await axios.post(`${base_url}upload/page2`, data, config);
-  return response.data;
-};
+
 const uploadImg3 = async (data) => {
   const response = await axios.post(`${base_url}upload/page3`, data, config);
   return response.data;
