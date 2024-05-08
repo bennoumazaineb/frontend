@@ -16,9 +16,8 @@ import Dropzone from "react-dropzone";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Grid from "@mui/material/Grid";
 import MDTextarea from "components/MDTextarea";
-import {  uploadImg } from "feature/upload/uploadSlice";
+import { delImg, uploadImg } from "feature/upload/uploadSlice";
 import { createTemplate, updateTemplate, getaTemplate } from "feature/template/templateSlice";
-import { delImg } from "feature/upload/uploadSlice";
 
 const schema = yup.object().shape({
   Id_template: yup.string().required("Id_template est requis"),
@@ -31,11 +30,9 @@ const Add_template = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [notification, setNotification] = useState(false);
-  const [images, setImages] = useState([]);
-
-  const imgState = useSelector((state) => state.upload?.images);
+  const imgState = useSelector((state) => state.upload.images);
   const getaTemplateId = location.pathname.split("/")[2];
-console.log(imgState)
+  const [images, setImages] = useState([]);
   useEffect(() => {
     if (getaTemplateId !== undefined) {
       dispatch(getaTemplate(getaTemplateId));
@@ -43,31 +40,33 @@ console.log(imgState)
 
     }
   }, [dispatch, getaTemplateId]);
-
-  const newTemplate = useSelector((state) => state.template?.TemplateByUser?.getaTemplate);
   const img = [];
-  imgState?.forEach((i) => {
+  imgState.forEach((i) => {
     img.push({
       public_id: i.public_id,
       url: i.url,
     });
+    
   });
   useEffect(() => {
-    setImages(img);
-  }, [imgState]);
+
+    formik.values.images = imgState;
+  }, [ imgState]);
+  const newTemplate = useSelector((state) => state.template?.TemplateByUser?.getaTemplate);
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       Id_template: newTemplate?.Id_template || "",
       URL: newTemplate?.URL || "",
-      images: images || [],
+      images: newTemplate?.images || [],
       Description: newTemplate?.Description || "",
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      const { Id_template, URL,  Description } = values;
+      const { Id_template, URL, images, Description } = values;
 
-      if (!Id_template || !Id_template.trim() || !URL || !URL.trim() || !Description || !Description.trim()) {
+      if (!Id_template || !Id_template.trim() || !URL || !URL.trim() || !images || images.length === 0 || !Description || !Description.trim()) {
         setNotification(true);
         return;
       }
@@ -101,7 +100,7 @@ console.log(imgState)
       
       } catch (error) {
         // Gestion des erreurs survenues pendant la création ou la modification du template
-        console.error("Erreur lors de la création ou de la modification du template :", error);
+      
         setNotification({
           show: true,
           message: "Une erreur s'est produite lors de l'opération. Veuillez réessayer."
@@ -114,9 +113,20 @@ console.log(imgState)
     formik.setFieldValue(name, value);
   };
 
+  const onDropHandler = (acceptedFiles) => {
+    dispatch(uploadImg(acceptedFiles));
 
- 
-
+    const updatedImages = acceptedFiles.map((file) => ({
+      public_id: file.public_id,
+      url: URL.createObjectURL(file),
+    }));
+    formik.setFieldValue('images', updatedImages);
+  };
+  const onDeleteImage = (public_id) => {
+    dispatch(delImg(public_id));
+    const updatedImages = formik.values.images.filter((image) => image.public_id !== public_id);
+    formik.setFieldValue('images', updatedImages);
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -198,18 +208,18 @@ console.log(imgState)
             <MDBox width="100%">
            
                 <MDBox>
-                  <Dropzone    onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}>
-                    {({ getRootProps, getInputProps }) => (
-                      <MDBox
-                        {...getRootProps()}
-                        style={{
-                          border: "outset",
-                          padding: "20px",
-                          borderRadius: "5px",
-                          width: "100%",
-                          margin: "auto",
-                        }}
-                      >
+                <Dropzone onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}>
+                {({ getRootProps, getInputProps }) => (
+                  <MDBox
+                    {...getRootProps()}
+                    style={{
+                      border: "outset",
+                      padding: "20px",
+                      borderRadius: "5px",
+                      width: "100%",
+                      margin: "auto",
+                    }}
+                  >
                         <input {...getInputProps()} />
                         <MDBox style={{ margin: "auto", width: "fit-content" }}>
                           <MDTypography variant="body2" color="text" ml={1} fontWeight="regular">
@@ -221,18 +231,19 @@ console.log(imgState)
                   </Dropzone>
                 </MDBox>
                 <MDBox className="showimages d-flex flex-wrap gap-3">
-                {images && (
-  images.map((image, index) => (
-    <Grid container item key={index} xs={12} sm={6} md={4} lg={3} justifyContent="center" alignItems="center">
-      <MDBox className="position-relative" style={{ position: "relative", marginBottom: "8px" }}>
-        {console.log(image.public_id,"sss")}
-        <DeleteIcon color="black"   onClick={() => dispatch(delImg(image.public_id))} style={{ position: "absolute", top: 0, right: 0, cursor: "pointer" }} />
-        <img src={image.url} alt="" width={200} height={200} />
-      </MDBox>
-    </Grid>
-  ))
-)}
-
+                {formik.values.images &&
+                formik.values.images.map((image, index) => (
+                  <Grid container item key={index} xs={12} sm={6} md={4} lg={3} justifyContent="center" alignItems="center">
+                    <MDBox className="position-relative" style={{ position: "relative", marginBottom: "8px" }}>
+                      <DeleteIcon
+                        color="black"
+                        onClick={() => onDeleteImage(image.public_id)}
+                        style={{ position: "absolute", top: 0, right: 0, cursor: "pointer" }}
+                      />
+                      <img src={image.url} alt="" width={200} height={200} />
+                    </MDBox>
+                  </Grid>
+                ))}
                 </MDBox>
     
             </MDBox>
