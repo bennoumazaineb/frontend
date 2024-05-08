@@ -13,7 +13,7 @@ import commentaireReducer from "../feature/commentaire/commentaireSlice"
 import historiqueReducer from "../feature/historique/historiqueSlice";
 import avisReducer from "../feature/avis/avisSlice"; // Correction de l'import
 import factureReducer from "../feature/facture/factureSlice"
-import upload1Reducer from "../feature/upload1/upload1Slice"
+
 export const store = configureStore({
     reducer: {
       project: projectReducer,
@@ -30,7 +30,7 @@ export const store = configureStore({
       historique: historiqueReducer,
       avis: avisReducer ,// Utilisation du reducer correct pour 'avis'
       facture:factureReducer,
-      upload1:upload1Reducer,
+    
 
    
     },
