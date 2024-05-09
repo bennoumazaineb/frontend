@@ -183,7 +183,7 @@ console.log("add_page2",add_page2)
           </MDBox>
           <MDBox display="flex" flexDirection="column" mt={5} mb={3} width="100%">
        {/* Dropzone pour les images */}
-       <MDBox display="flex" flexDirection="row" mt={5} mb={3} width="100%">
+       <MDBox display="flex" flexDirection="row" justifyContent="center">
             <MDBox width="100%">
 
             <Dropzone

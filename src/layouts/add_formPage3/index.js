@@ -169,6 +169,7 @@ const Add_formPage3 = () => {
               />
                </MDBox>
               {/* Image Upload */}
+              <MDBox display="flex" flexDirection="row" justifyContent="center">
               <Dropzone
             onDrop={(acceptedFiles) => dispatch(uploadImg3(acceptedFiles))}
             multiple
@@ -191,7 +192,7 @@ const Add_formPage3 = () => {
               </MDBox>
             )}
           </Dropzone>
-          
+          </MDBox>
 <MDBox display="flex" justifyContent="space-between">
   {singleService.images.map((image, imgIndex) => (
     <MDBox key={imgIndex}>
