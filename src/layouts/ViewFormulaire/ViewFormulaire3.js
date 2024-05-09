@@ -75,7 +75,7 @@ const ViewFormulaire3 = () => {
               <div className="d-flex gap-3">
                 <h6 className="mb-0">Images:</h6>
                 <p className="mb-0">
-                // Affichage des images si item.images est défini et est un tableau non vide
+       
 {item?.images && item.images.length > 0 && (
   <div className="d-flex gap-3">
     <h6 className="mb-0">Images:</h6>
@@ -90,7 +90,7 @@ const ViewFormulaire3 = () => {
   </div>
 )}
 
-// Affichage d'un message si item.images n'est pas défini ou est vide
+
 {(!item?.images || item.images.length === 0) && (
   <p>Aucune image disponible.</p>
 )}
