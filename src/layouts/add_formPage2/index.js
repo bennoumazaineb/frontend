@@ -16,13 +16,11 @@ import Dropzone from "react-dropzone";
 import MenuItem from '@mui/material/MenuItem';
 import Grid from "@mui/material/Grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deleteImg2, uploadImg2 } from "feature/upload/uploadSlice";
+import { deleteImg2, uploadImg2 } from "feature/upload2/uploadSlice";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {getClients} from "feature/auth/authSlice"
 import imageCompression from 'browser-image-compression';
-import { uploadImg } from "feature/upload/uploadSlice";
-import { delImg } from "feature/upload/uploadSlice";
 
 const Add_formPage2 = () => {
   const [notification, setNotification] = useState(false);
@@ -37,7 +35,7 @@ const Add_formPage2 = () => {
   useEffect(() => {
     dispatch(getClients());
   }, [dispatch]);
-  const imgState = useSelector((state) => state.upload?.images);
+  const imgState = useSelector((state) => state.upload2.images2);
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -188,7 +186,7 @@ console.log("add_page2",add_page2)
        <MDBox display="flex" flexDirection="row" mt={5} mb={3} width="100%">
             <MDBox width="100%">
 
-                <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}>
+                <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg2(acceptedFiles))}>
                   {({ getRootProps, getInputProps }) => (
                     <MDBox
                       {...getRootProps()}
@@ -220,7 +218,7 @@ console.log("add_page2",add_page2)
         {console.log(image.public_id,"sss")}
         <DeleteIcon
           color="black"
-          onClick={() => dispatch(delImg(image.public_id))}
+          onClick={() => dispatch(deleteImg2(image.public_id))}
           style={{ position: 'absolute', top: 0, right: 0, cursor: 'pointer' }}
         />
           <img src={image.url} alt="" width={200} height={200} />
