@@ -199,6 +199,10 @@ console.log("add_page2",add_page2)
                         borderRadius: "5px",
                         width: "100%",
                         margin: "auto",
+                        display: "flex",             // Utiliser flexbox
+        flexDirection: "column",     // Aligner les enfants en colonne
+        alignItems: "center",        // Centrer les enfants horizontalement
+        justifyContent: "center",    // Centrer les enfants verticalement
                       }}
                     >
              <MDInput {...getInputProps()} />
