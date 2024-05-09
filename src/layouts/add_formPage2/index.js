@@ -21,7 +21,6 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {getClients} from "feature/auth/authSlice"
 import imageCompression from 'browser-image-compression';
-import { uploadImg,delImg } from "feature/upload/uploadSlice";
 
 const Add_formPage2 = () => {
   const [notification, setNotification] = useState(false);
@@ -36,7 +35,7 @@ const Add_formPage2 = () => {
   useEffect(() => {
     dispatch(getClients());
   }, [dispatch]);
-  const imgState = useSelector((state) => state.upload?.images);
+  const imgState = useSelector((state) => state.upload?.images2);
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -187,49 +186,47 @@ console.log("add_page2",add_page2)
        <MDBox display="flex" flexDirection="row" mt={5} mb={3} width="100%">
             <MDBox width="100%">
 
-                <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}>
-                  {({ getRootProps, getInputProps }) => (
-                    <MDBox
-                      {...getRootProps()}
-                      style={{
-                        border: "outset",
-                        padding: "20px",
-                        borderRadius: "5px",
-                        width: "100%",
-                        margin: "auto",
-                      }}
-                    >
-                      <input {...getInputProps()} />
-                      <MDBox style={{ margin: "auto", width: "fit-content" }}>
-                        <MDTypography variant="body2" color="text" ml={1} fontWeight="regular">
-                          Faites glisser et déposez quelques images ici, ou cliquez pour sélectionner des images.
-                        </MDTypography>
-                      </MDBox>
-                    </MDBox>
-                  )}
-                </Dropzone>
+            <Dropzone
+            onDrop={(acceptedFiles) => dispatch(uploadImg2(acceptedFiles))}
+            multiple
+          >
+            {({ getRootProps, getInputProps }) => (
+              <MDBox
+                {...getRootProps()}
+                style={{
+                  border: "2px dashed #ccc",
+                  padding: "20px",
+                  borderRadius: "5px",
+                  width: "100%",
+                  margin: "auto",
+                  textAlign: "center",
+                }}
+              >
+                <input {...getInputProps()} />
+                <MDTypography variant="body2" color="text">
+                  Faites glisser et déposez quelques images ici, ou cliquez pour sélectionner des images.
+                </MDTypography>
               </MDBox>
-    
-            {/* Affichage des images sélectionnées */}
-            <MDBox className="showimages d-flex flex-wrap gap-3">
-  {add_page2.images &&
-    add_page2.images.map((image, index) => (
-      <Grid container item key={index} xs={12} sm={6} md={4} lg={3} justifyContent="center" alignItems="center">
-        <MDBox className="position-relative" style={{ position: 'relative', marginBottom: '8px' }}>
-        {console.log(image.public_id,"sss")}
-        <DeleteIcon
-          color="black"
-          onClick={() => dispatch(delImg(image.public_id))}
-          style={{ position: 'absolute', top: 0, right: 0, cursor: 'pointer' }}
-        />
-          <img src={image.url} alt="" width={200} height={200} />
-        </MDBox>
-      </Grid>
-    ))}
-</MDBox>
+            )}
+          </Dropzone>
 
+          {/* Affichage des images sélectionnées */}
+          <MDBox display="flex" flexDirection="row" flexWrap="wrap" mt={3}>
+            {add_page2.images.map((image, index) => (
+              <Grid item key={index}>
+                <MDBox className="position-relative" style={{ marginBottom: "8px" }}>
+                  <DeleteIcon
+                    color="error"
+                    onClick={() => dispatch(deleteImg2(image.public_id))}
+                    style={{ position: "absolute", top: 0, right: 0, cursor: "pointer" }}
+                  />
+                  <img src={image.url} alt="" width={150} height={150} />
+                </MDBox>
+              </Grid>
+            ))}
           </MDBox>
 
+          </MDBox>     </MDBox>
           {/* Bouton de soumission du formulaire */}
           <MDBox mt={4} display="flex" justifyContent="end">
             <MDButton variant="gradient" color="info" type="submit">
