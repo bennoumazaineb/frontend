@@ -198,18 +198,18 @@ console.log("add_page2",add_page2)
                         padding: "20px",
                         borderRadius: "5px",
                         width: "100%",
-                        margin: "auto",
-                        display: "flex",             // Utiliser flexbox
+                        margin: "auto",            // Utiliser flexbox
         flexDirection: "column",     // Aligner les enfants en colonne
         alignItems: "center",        // Centrer les enfants horizontalement
         justifyContent: "center",    // Centrer les enfants verticalement
                       }}
                     >
              <MDInput {...getInputProps()} />
-                <MDTypography variant="body2" color="text">
+             <MDBox style={{ margin: "auto", width: "fit-content" }}>
+                        <MDTypography variant="body2" color="text" ml={1} fontWeight="regular">
                   Faites glisser et déposez quelques images ici, ou cliquez pour sélectionner des images.
                 </MDTypography>
-              </MDBox>
+              </MDBox>      </MDBox>
             )}
           </Dropzone>
 
