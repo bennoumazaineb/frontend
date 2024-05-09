@@ -10,7 +10,7 @@ import MDAlert from "components/MDAlert";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import { delImg, uploadImg } from "feature/upload/uploadSlice";
+import { delImg, uploadImg3 } from "feature/upload/uploadSlice";
 import Header from "layouts/add_formPage3/Header";
 import Dropzone from "react-dropzone";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -170,7 +170,7 @@ const Add_formPage3 = () => {
               />
                </MDBox>
               {/* Image Upload */}
-              <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))} >
+              <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg3(acceptedFiles))} >
                 {({ getRootProps, getInputProps }) => (
                   <MDBox {...getRootProps()} style={{ border: "outset", padding: "20px", borderRadius: "5px", width: "100%" }}>
                     <input {...getInputProps()} />
