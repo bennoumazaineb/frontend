@@ -190,19 +190,18 @@ console.log("add_page2",add_page2)
             onDrop={(acceptedFiles) => dispatch(uploadImg2(acceptedFiles))}
             multiple
           >
-            {({ getRootProps, getInputProps }) => (
-              <MDBox
-                {...getRootProps()}
-                style={{
-                  border: "2px dashed #ccc",
-                  padding: "20px",
-                  borderRadius: "5px",
-                  width: "100%",
-                  margin: "auto",
-                  textAlign: "center",
-                }}
-              >
-                <input {...getInputProps()} />
+             {({ getRootProps, getInputProps }) => (
+                    <MDBox
+                      {...getRootProps()}
+                      style={{
+                        border: "outset",
+                        padding: "20px",
+                        borderRadius: "5px",
+                        width: "100%",
+                        margin: "auto",
+                      }}
+                    >
+             <MDInput {...getInputProps()} />
                 <MDTypography variant="body2" color="text">
                   Faites glisser et déposez quelques images ici, ou cliquez pour sélectionner des images.
                 </MDTypography>
