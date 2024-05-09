@@ -75,12 +75,26 @@ const ViewFormulaire3 = () => {
               <div className="d-flex gap-3">
                 <h6 className="mb-0">Images:</h6>
                 <p className="mb-0">
-                  {item?.images?.map((image, imageIndex) => (
-                    <React.Fragment key={imageIndex}>
-                      <a style={{ fontSize: "17px" }} href={image.url}>{image.url}</a>
-                      <br/>
-                    </React.Fragment>
-                  ))}
+                // Affichage des images si item.images est défini et est un tableau non vide
+{item?.images && item.images.length > 0 && (
+  <div className="d-flex gap-3">
+    <h6 className="mb-0">Images:</h6>
+    <div>
+      {item.images.map((image, imageIndex) => (
+        <React.Fragment key={imageIndex}>
+          <a style={{ fontSize: "17px" }} href={image.url}>{image.url}</a>
+          <br/>
+        </React.Fragment>
+      ))}
+    </div>
+  </div>
+)}
+
+// Affichage d'un message si item.images n'est pas défini ou est vide
+{(!item?.images || item.images.length === 0) && (
+  <p>Aucune image disponible.</p>
+)}
+
                 </p>
               </div>
               <br/><br/>
