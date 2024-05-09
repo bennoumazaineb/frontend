@@ -215,11 +215,11 @@ console.log("add_page2",add_page2)
             {add_page2.images.map((image, index) => (
               <Grid item key={index}>
                 <MDBox className="position-relative" style={{ marginBottom: "8px" }}>
-                  <DeleteIcon
-                    color="error"
-                    onClick={() => dispatch(deleteImg2(image.public_id))}
-                    style={{ position: "absolute", top: 0, right: 0, cursor: "pointer" }}
-                  />
+                <DeleteIcon
+          color="black"
+          onClick={() => dispatch(deleteImg2(image.public_id))}
+          style={{ position: 'absolute', top: 0, right: 0, cursor: 'pointer' }}
+        />
                   <img src={image.url} alt="" width={150} height={150} />
                 </MDBox>
               </Grid>

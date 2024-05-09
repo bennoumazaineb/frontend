@@ -43,7 +43,7 @@ const Add_formPage3 = () => {
   };
 
 
-  const imgState = useSelector((state) => state.upload?.images);
+  const imgState = useSelector((state) => state.upload?.images3);
 
   const handleServiceAdd = () => {
     setServiceList([...serviceList, { titre: "" , description_court:"" , description:"" , images:[]} ]);
@@ -169,18 +169,29 @@ const Add_formPage3 = () => {
               />
                </MDBox>
               {/* Image Upload */}
-              <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg3(acceptedFiles))} >
-                {({ getRootProps, getInputProps }) => (
-                  <MDBox {...getRootProps()} style={{ border: "outset", padding: "20px", borderRadius: "5px", width: "100%" }}>
-                    <input {...getInputProps()} />
-                    <MDBox style={{ margin: "auto", width: "fit-content" }}>
-                      <MDTypography variant="body2" color="text" ml={1} fontWeight="regular">
-                        Faites glisser et déposez quelques images ici, ou cliquez pour sélectionner des images.
-                      </MDTypography>
-                    </MDBox>
-                  </MDBox>
-                )}
-              </Dropzone>
+              <Dropzone
+            onDrop={(acceptedFiles) => dispatch(uploadImg3(acceptedFiles))}
+            multiple
+          >
+            {({ getRootProps, getInputProps }) => (
+              <MDBox
+                {...getRootProps()}
+                style={{
+                  border: "2px dashed #ccc",
+                  padding: "20px",
+                  borderRadius: "5px",
+                  width: "100%",
+                  margin: "auto",
+                  textAlign: "center",
+                }}
+              >
+                <input {...getInputProps()} />
+                <MDTypography variant="body2" color="text">
+                  Faites glisser et déposez quelques images ici, ou cliquez pour sélectionner des images.
+                </MDTypography>
+              </MDBox>
+            )}
+          </Dropzone>
           
 <MDBox display="flex" justifyContent="space-between">
   {singleService.images.map((image, imgIndex) => (
