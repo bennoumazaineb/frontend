@@ -18,7 +18,6 @@ import * as yup from "yup";
 import { createPage3 } from "feature/page3/page3Slice";
 import { useFormik } from "formik";
 import imageCompression from 'browser-image-compression';
-import { uploadImg3 } from "feature/upload/uploadSlice";
 const Add_formPage3 = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
