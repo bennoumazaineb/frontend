@@ -16,11 +16,12 @@ import Dropzone from "react-dropzone";
 import MenuItem from '@mui/material/MenuItem';
 import Grid from "@mui/material/Grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { delImg, uploadImg } from "feature/upload/uploadSlice";
+import { deleteImg2, uploadImg2 } from "feature/upload/uploadSlice";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {getClients} from "feature/auth/authSlice"
 import imageCompression from 'browser-image-compression';
+import { uploadImg,delImg } from "feature/upload/uploadSlice";
 
 const Add_formPage2 = () => {
   const [notification, setNotification] = useState(false);
@@ -35,7 +36,7 @@ const Add_formPage2 = () => {
   useEffect(() => {
     dispatch(getClients());
   }, [dispatch]);
-  const imgState = useSelector((state) => state.upload?.images2);
+  const imgState = useSelector((state) => state.upload?.images);
   const submitHandler = async (e) => {
     e.preventDefault();
 

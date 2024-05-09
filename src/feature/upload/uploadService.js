@@ -12,9 +12,15 @@ const uploadImg1 = async (data) => {
   return response.data;
 };
 const uploadImg2 = async (data) => {
-  const response = await axios.post(`${base_url}upload/page2`, data);
-  return response.data;
+  try {
+    const response = await axios.post(`${base_url}upload/page2`, data, config);
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de l'image vers /upload/page2 :", error);
+    throw error; // Propagez l'erreur pour une gestion ultérieure
+  }
 };
+
 const deleteImg = async (id) => {
   const response = await axios.delete(
     `${base_url}upload/delete-img/${id}`,
