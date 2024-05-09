@@ -78,7 +78,6 @@ const ViewFormulaire3 = () => {
        
 {item?.images && item.images.length > 0 && (
   <div className="d-flex gap-3">
-    <h6 className="mb-0">Images:</h6>
     <div>
       {item.images.map((image, imageIndex) => (
         <React.Fragment key={imageIndex}>
