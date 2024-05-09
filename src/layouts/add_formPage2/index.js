@@ -16,7 +16,7 @@ import Dropzone from "react-dropzone";
 import MenuItem from '@mui/material/MenuItem';
 import Grid from "@mui/material/Grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deleteImg2, uploadImg2 } from "feature/upload/uploadSlice";
+import { delImg, uploadImg } from "feature/upload/uploadSlice";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {getClients} from "feature/auth/authSlice"
@@ -186,7 +186,7 @@ console.log("add_page2",add_page2)
        <MDBox display="flex" flexDirection="row" mt={5} mb={3} width="100%">
             <MDBox width="100%">
 
-                <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg2(acceptedFiles))}>
+                <Dropzone   onDrop={(acceptedFiles) => dispatch(uploadImg(acceptedFiles))}>
                   {({ getRootProps, getInputProps }) => (
                     <MDBox
                       {...getRootProps()}
@@ -218,7 +218,7 @@ console.log("add_page2",add_page2)
         {console.log(image.public_id,"sss")}
         <DeleteIcon
           color="black"
-          onClick={() => dispatch(deleteImg2(image.public_id))}
+          onClick={() => dispatch(delImg(image.public_id))}
           style={{ position: 'absolute', top: 0, right: 0, cursor: 'pointer' }}
         />
           <img src={image.url} alt="" width={200} height={200} />
