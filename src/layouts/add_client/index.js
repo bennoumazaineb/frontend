@@ -93,7 +93,12 @@ console.log(newClient)
       const formattedValue = value.replace(/\D/g, ""); // Supprimer tous les caractères non numériques
       const maxLengthValue = formattedValue.slice(0, 8); // Limiter à 8 chiffres max
       setadd_client({ ...add_client, [name]: maxLengthValue });
+      
+    } else if (name === "Partenaire") {
+      // Mettre à jour la valeur du Partenaire
+      setadd_client({ ...add_client, [name]: value });
     } else {
+      // Mettre à jour d'autres champs
       setadd_client({ ...add_client, [name]: value });
     }
   };
@@ -106,13 +111,15 @@ console.log(newClient)
     if (
       add_client.Nom_Prénom.trim().length === 0 ||
       add_client.email.trim().length === 0 ||
-      (typeof add_client.Téléphone === 'string' && add_client.Téléphone.trim().length === 0) ||
+      add_client.Téléphone.trim().length === 0 ||
       add_client.Société.trim().length === 0 ||
-      add_client.Partenaire.trim().length === 0 ||
-      add_client.Poste.trim().length === 0 ||
+      add_client.Partenaire.trim().length === 0 ||  // Assurez-vous que Partenaire est requis
+      add_client.password.trim().length === 0 ||
       !add_client.email.trim().match(mailFormat) ||
-      add_client.password.trim().length === 0
+      add_client.password.trim().length < 6
     ) {
+ 
+    
       // Affichage de la notification appropriée en fonction de la condition
       if (add_client.password.trim().length < 6) {
         // Si le mot de passe a moins de 6 caractères
