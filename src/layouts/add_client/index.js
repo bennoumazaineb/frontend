@@ -305,7 +305,7 @@ console.log(newClient)
                   <MenuItem value="" disabled>
                     Sélectionner partenaire
                   </MenuItem>
-                  {partnerState?.map((item, index) => (<MenuItem value={item._id}>{item.Nom_Prénom}</MenuItem>))}
+                  {partnerState?.map((item, index) => (<MenuItem value={item.Nom_Prénom}>{item.Nom_Prénom}</MenuItem>))}
                 </MDSelect>
            
               </MDBox>
