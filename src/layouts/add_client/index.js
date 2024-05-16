@@ -305,8 +305,10 @@ console.log(newClient)
                   <MenuItem value="" disabled>
                     Sélectionner partenaire
                   </MenuItem>
-                  {partnerState?.map((item, index) => ( <MenuItem key={index} value={item.Nom_Prénom}>
-                      {item.Nom_Prénom}
+                  {partnerState?.map((item, index) => (
+          <MenuItem key={item._id} value={`${item.Nom_Prénom}`}>
+  {item.Nom_Prénom}
+               
                     </MenuItem>))}
                 </MDSelect>
            
