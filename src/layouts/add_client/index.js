@@ -94,11 +94,8 @@ console.log(newClient)
       const maxLengthValue = formattedValue.slice(0, 8); // Limiter à 8 chiffres max
       setadd_client({ ...add_client, [name]: maxLengthValue });
       
-    } else if (name === "Partenaire") {
-      // Mettre à jour la valeur du Partenaire
-      setadd_client({ ...add_client, [name]: value });
     } else {
-      // Mettre à jour d'autres champs
+      
       setadd_client({ ...add_client, [name]: value });
     }
   };
