@@ -289,27 +289,33 @@ console.log(newClient)
               width="100%"
               mr={2}
             >
-              <MDTypography variant="body2" color="text" ml={1} fontWeight="regular">
+             <MDTypography variant="body2" color="text" ml={1} fontWeight="regular">
                 Partenaire
               </MDTypography>
               <MDBox mb={1} width="100%">
                 <MDSelect
                   fullWidth
                   name="Partenaire"
-                  value={add_client.Partenaire}
+                  value={addClient.Partenaire}
                   onChange={changeHandler}
-                  disabled={isDemo}
-                  displayEmpty // Permet d'afficher le placeholder
-        renderValue={(selected) => selected || "Selectionner  Partenaire (s'il existe)"}
+                  displayEmpty
+                  renderValue={(selected) =>
+                    selected || "Sélectionner un partenaire (s'il existe)"
+                  }
                 >
                   <MenuItem value="" disabled>
-                    Sélectionner partenaire
+                    Sélectionner un partenaire
                   </MenuItem>
-                  {partnerState?.map((item, index) => (<MenuItem value={item.Nom_Prénom}>{item.Nom_Prénom}</MenuItem>))}
+                  {partnerState?.map((item, index) => (
+                    <MenuItem key={index} value={item.Nom_Prénom}>
+                      {item.Nom_Prénom}
+                    </MenuItem>
+                  ))}
                 </MDSelect>
-           
               </MDBox>
             </MDBox>
+           
+    
 
             <MDBox
               display="flex"
