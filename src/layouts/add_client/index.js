@@ -108,7 +108,7 @@ console.log(newClient)
       add_client.email.trim().length === 0 ||
       (typeof add_client.Téléphone === 'string' && add_client.Téléphone.trim().length === 0) ||
       add_client.Société.trim().length === 0 ||
-      add_client.password.trim().length === 0 ||
+      add_client.Partenaire.trim().length === 0 ||
       add_client.Poste.trim().length === 0 ||
       !add_client.email.trim().match(mailFormat) ||
       add_client.password.trim().length === 0
