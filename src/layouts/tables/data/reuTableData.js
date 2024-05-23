@@ -50,7 +50,7 @@ const Data = () => {
         const updatedReus = useSelector((state) => state.reu?.reus);
         const updatedMeeting = updatedReus.find((item) => item._id === id);
 
-        if (updatedMeeting?.Proposition === 'REFUSÉE') {
+        if (updatedMeeting?.Proposition === 'refusé') {
           window.location.href = '/Creation_Reunion';
         }
       })
@@ -72,7 +72,7 @@ const Data = () => {
     pb: 3,
   };
   const renderButton = (item) => {
-    const isAccepted = item.Proposition === 'ACCEPTÉE';
+    const isAccepted = item.Proposition === 'accepté';
     const buttonStyle = {
       background: isAccepted ? 'linear-gradient(45deg, #0c71c2 30%, #21cbf3 90%)' : 'linear-gradient(45deg, #c21c10 30%, #b03b31 90%)',
       color: 'white',
@@ -87,7 +87,7 @@ const Data = () => {
       style={buttonStyle}
       onClick={() => isAdmin && handleUpdateProposition(item._id)}
       disabled={!isAdmin}
-      href={item.Proposition === 'REFUSÉE' ? '/Creation_Reunion' : undefined}
+      href={item.Proposition === 'refusé' ? '/Creation_Reunion' : undefined}
     >
       {item.Proposition}
     </MDButton>
