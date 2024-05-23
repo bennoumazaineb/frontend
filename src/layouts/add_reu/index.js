@@ -93,7 +93,7 @@ const Add_Reu = () => {
       if (response.error) {
         throw new Error(response.error.message); // Gestion explicite de l'erreur
       }
-      setNotification({ show: true, message: "Réunion ajouté avec succès." });
+      setNotification({ show: true, message: "Réunion ajoutée avec succès." });
       setTimeout(() => {
         dispatch(resetState());
         navigate("/reunion");
@@ -104,7 +104,7 @@ const Add_Reu = () => {
       if (response.error) {
         throw new Error(response.error.message); // Gestion explicite de l'erreur
       }
-      setNotification({ show: true, message: "Réunion modifié avec succès." });
+      setNotification({ show: true, message: "Réunion modifiée avec succès." });
       setTimeout(() => {
         dispatch(resetState());
         navigate("/reunion");
