@@ -36,7 +36,7 @@ const UpdateReus = async (add_Reu) => {
 
 
 const updatePropositionRefusedToAccepted = async (id) => {
-  const response = await axios.put(`${base_url}reu/propositions/${id}`, { Proposition: 'accepté' }, { Proposition: 'refusé' });
+  const response = await axios.put(`${base_url}reu/propositions/${id}`, { Proposition: 'ACCEPTÉE' }, { Proposition: 'REFUSÉE' });
   return response.data;
 };
 
