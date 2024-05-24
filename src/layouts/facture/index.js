@@ -189,7 +189,7 @@ const RecipeReviewCard = () => {
                   marginTop: '10px',
                 }}
               >
-                Payée maintenant
+                Payer maintenant
               </MDButton>
           )}
 
