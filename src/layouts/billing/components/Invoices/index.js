@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTasks } from 'feature/tache/tacheSlice';
 import Invoice from "layouts/billing/components/Invoice";
 import { getProjects } from "../../../../feature/project/projectSlice";
-import { deleteaUser, getClients } from "feature/auth/authSlice";
+import { getClients } from "feature/auth/authSlice";
 
 function Invoices() {
   const dispatch = useDispatch();
@@ -28,6 +28,7 @@ function Invoices() {
   const isAdmin = role === "admin";
   const isClient = role === "client";
   const isPartner = role === "partner";
+  const isEmployee = role === "employee"; // Vérifier le rôle "employee"
 
   return (
     <Card sx={{ height: "100%" }}>
@@ -71,8 +72,8 @@ function Invoices() {
               }
             }
 
-            // Afficher tous les projets pour l'administrateur
-            if (isAdmin) {
+            // Afficher tous les projets pour l'administrateur et l'employé
+            if (isAdmin || isEmployee) {
               return (
                 <Invoice
                   key={_id}

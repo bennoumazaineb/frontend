@@ -5,16 +5,19 @@ import MDBox from 'components/MDBox';
 import MDTypography from 'components/MDTypography';
 import Transaction from 'layouts/billing/components/Transaction';
 import { getTasksByProject } from 'feature/tache/tacheSlice';
-import { getProjects } from '../../../../feature/project/projectSlice';
-import { deleteaUser, getClients } from "feature/auth/authSlice";
+import { getProjects } from 'feature/project/projectSlice';
+import { getClients } from 'feature/auth/authSlice';
+
 function Transactions() {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.task?.TasksByProject);
   const projects = useSelector((state) => state.project?.projects);
+  const clientState = useSelector((state) => state.auth?.clients);
+
   const token = localStorage.getItem('user');
   const currentUser = JSON.parse(token);
   const { role, _id: userId, Nom_Prénom: userFullName } = currentUser;
-  const clientState = useSelector((state) => state.auth?.clients);
+
   useEffect(() => {
     dispatch(getTasksByProject());
     dispatch(getProjects());
@@ -38,10 +41,11 @@ function Transactions() {
             const isPartner = role === 'partner';
             const isAdmin = role === 'admin';
             const isClient = role === 'client';
+            const isEmployee = role === 'employee'; // Vérifier le rôle "employee"
 
             // Vérifier si le projet correspond aux critères d'affichage
             const shouldDisplayProject =
-              isAdmin || // Afficher tous les projets pour l'admin
+              isAdmin || isEmployee || // Afficher tous les projets pour l'admin et l'employé
               (isPartner && clientState.find((cli) => cli.Nom_Prénom === client && cli.Partenaire === userId)) || // Afficher les projets pour un partenaire
               (isClient && client === userFullName); // Afficher les projets pour un client
 
