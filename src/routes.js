@@ -211,7 +211,7 @@ const routes = [
     icon: <InfoOutlinedIcon fontSize="small" />, // Utilisez InfoOutlinedIcon pour À propos
     route: "/Propos",
     component: <Propos />,
-    role:["admin","client","partner"]
+    role:["admin","client","partner","employee"]
   },
 
   {
