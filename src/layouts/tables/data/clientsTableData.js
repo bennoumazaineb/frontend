@@ -53,7 +53,7 @@ const Data = () => {
 
   const token = localStorage.getItem("user");
   const userRole = token ? JSON.parse(token).role : null;
-  const userPartner = token ? JSON.parse(token)._id : null; // Récupérer le nom_prénom du partenaire connecté
+  const userPartner = token ? JSON.parse(token).Partenaire : null; // Récupérer le nom_prénom du partenaire connecté
   const isAdmin = userRole === "admin";
   useEffect(() => {
     // Générer la couleur pour chaque client en fonction de leur nom
