@@ -26,7 +26,7 @@ const Data = () => {
 
   const userRole = token ? JSON.parse(token).role : null;
   const userName = token ? JSON.parse(token).Nom_Prénom : null;
-  const userName1 = token ? JSON.parse(token)._id : null;
+  const userName1 = token ? JSON.parse(token).Nom_Prénom : null;
   const isAdmin = userRole === "admin";
   const isEmployee = userRole === "employee";
   const isClient = userRole === "client";
