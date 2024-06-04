@@ -60,7 +60,7 @@ function Invoices() {
 
             // Vérifier si le partenaire du client correspond à l'utilisateur actuel (partenaire)
             if (isPartner) {
-              const clientPartner = clientState.find((cli) => cli.Nom_Prénom === client && cli.Partenaire === userId);
+              const clientPartner = clientState.find((cli) => cli.Nom_Prénom === client && cli.Partenaire === userFullName);
               if (clientPartner) {
                 return (
                   <Invoice

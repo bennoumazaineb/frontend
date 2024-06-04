@@ -46,7 +46,7 @@ function Transactions() {
             // Vérifier si le projet correspond aux critères d'affichage
             const shouldDisplayProject =
               isAdmin || isEmployee || // Afficher tous les projets pour l'admin et l'employé
-              (isPartner && clientState.find((cli) => cli.Nom_Prénom === client && cli.Partenaire === userId)) || // Afficher les projets pour un partenaire
+              (isPartner && clientState.find((cli) => cli.Nom_Prénom === client && cli.Partenaire === userFullName)) || // Afficher les projets pour un partenaire
               (isClient && client === userFullName); // Afficher les projets pour un client
 
             if (shouldDisplayProject) {
