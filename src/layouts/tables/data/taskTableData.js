@@ -261,9 +261,10 @@ const userToken = localStorage.getItem('user');
           </MDSelect>
           <MDBox display="flex" flexDirection="row" mt={5} mb={3}>
             <MDBox ml={1} display="flex">
-              <MDButton onClick={() => handleAffect(item._id, selectedItemId)} variant="gradient" color="info">
-                Affecter
-              </MDButton>
+            <MDButton onClick={() => handleAffect(selectedItemId, add_affemp.Employe)} variant="gradient" color="info">
+  Affecter
+</MDButton>
+
             </MDBox>
             <MDBox ml={15} display="flex">
               <MDButton onClick={handleClose} ml={2} variant="gradient" color="info" type="submit">
