@@ -120,15 +120,14 @@ const userToken = localStorage.getItem('user');
   };
   const submitHandler = async (taskId, employeeId) => {
     if (taskId && employeeId) {
-      dispatch(updateTaskEmployee({ taskId, employeeId }));
-      window.location.href = '/Tache';
-      setTimeout(() => {
-        window.location.href = '/Tache';
-      }, 300);
+      await dispatch(updateTaskEmployee({ taskId, employeeId }));
+      dispatch(getTasks()); // Mettez à jour les tâches après l'affectation
+      setAffectationOpen(false); // Fermez le modèle d'affectation après l'affectation
     } else {
       console.error('Task ID or Employee ID is undefined');
     }
   };
+  
 
   const handleAffect = () => {
     if (selectedItemId && add_affemp.Employe) {
@@ -261,10 +260,9 @@ const userToken = localStorage.getItem('user');
           </MDSelect>
           <MDBox display="flex" flexDirection="row" mt={5} mb={3}>
             <MDBox ml={1} display="flex">
-            <MDButton onClick={() => handleAffect(selectedItemId, add_affemp.Employe)} variant="gradient" color="info">
-  Affecter
-</MDButton>
-
+              <MDButton onClick={() => handleAffect(item._id, selectedItemId)} variant="gradient" color="info">
+                Affecter
+              </MDButton>
             </MDBox>
             <MDBox ml={15} display="flex">
               <MDButton onClick={handleClose} ml={2} variant="gradient" color="info" type="submit">
