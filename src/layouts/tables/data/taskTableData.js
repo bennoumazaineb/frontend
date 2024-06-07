@@ -154,7 +154,8 @@ const userToken = localStorage.getItem('user');
     dispatch(DeleteTask(id));
     setConfirmationOpen(false);
     setTimeout(() => {
-      dispatch(getTasks());
+      navigate("/Tache");
+
     }, 100);
   };
 
