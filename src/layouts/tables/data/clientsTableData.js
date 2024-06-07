@@ -33,8 +33,8 @@ const Data = () => {
   const handleDelete = (userId) => {
     dispatch(deleteaUser(userId));
     setOpen(false);
-    // Rafraîchir la liste des clients après la suppression
-    dispatch(getClients());
+    navigate("/clients");
+
   };
 
   const style = {

@@ -62,7 +62,7 @@ export default function Data() {
       dispatch(deleteaUser(userId));
       setOpen(false);
       setTimeout(() => {
-        dispatch(getEmps());
+        navigate("/Employees");
       }, 100);
   };
   
